@@ -2,8 +2,9 @@ from stack import Stack
 
 def valid(x, y, v):
     try:
-        z = v[x][y]
-        return True
+        if v[x][y] == 0:
+            return True
+        return False
     except IndexError:
         return False
 
