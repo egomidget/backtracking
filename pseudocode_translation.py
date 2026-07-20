@@ -21,16 +21,19 @@ def solve_maze(start_x, start_y):
     Goal = [1, 1]
     while not stack.isEmpty():
         [current_x, current_y] = stack.peek()
-
+        visited[current_x][current_y] = 1
         if [current_x, current_y] == Goal:
             print("Path Found, the stack has the route")
+            break
 
         if valid(current_x+1, current_y, visited):
-            stack.push(current_x+1, current_y)
+            stack.push([current_x+1, current_y])
         elif valid(current_x-1, current_y, visited):
-            stack.push(current_x-1, current_y)
+            stack.push([current_x-1, current_y])
         elif valid(current_x, current_y+1, visited):
-            stack.push(current_x, current_y+1)
+            stack.push([current_x, current_y+1])
         elif valid(current_x, current_y-1, visited):
-            stack.push(current_x, current_y-1)
-            
+            stack.push([current_x, current_y-1])
+
+        
+solve_maze(0, 0)
