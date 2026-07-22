@@ -32,7 +32,22 @@ def solve_maze(start_x, start_y, goal_x, goal_y, visited = [[0, 0, 0, 0, 0, 0, 0
 
         if [current_x, current_y] == Goal:
             print("Path Found, the stack has the route")
+            for z in range(0, stack.size()):
+                x1, y1 = stack.pop()
+                visited[x1][y1] = 0
 
+                for x in visited:
+                    for y in x:
+                        if y == 0:
+                            print(Fore.BLACK+"0, ", end = "")
+                        elif y == 1:
+                            print(Fore.GREEN+"1, ", end = "")
+                        elif y == 7:
+                            print(Fore.RED+"7, ", end = "")
+                    print("")
+                print(Fore.WHITE+"")
+                time.sleep(0.1)
+            return "Path has been found"
 
         if valid(current_x+1, current_y, visited):
             stack.push([current_x+1, current_y])
