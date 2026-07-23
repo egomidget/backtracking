@@ -40,9 +40,10 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
     visited[start["x"]][start["y"]] = 1
     goal = [goal["x"], goal["y"]]
     while not stack.isEmpty():
-        [current_x, current_y] = stack.peek()
+        current = dict()
+        current["x"], current["y"] = stack.peek()
 
-        if [current_x, current_y] == goal:
+        if [current["x"], current["y"]] == goal:
             print("Path Found, the stack has the route")
             for z in range(0, stack.size()):
                 x1, y1 = stack.pop()
@@ -61,21 +62,21 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
                 time.sleep(0.1)
             return "Path has been found"
 
-        if validate_position(current_x+1, current_y, visited):
-            stack.push([current_x+1, current_y])
-            visited[current_x+1][current_y] = 1
+        if validate_position(current["x"]+1, current["y"], visited):
+            stack.push([current["x"]+1, current["y"]])
+            visited[current["x"]+1][current["y"]] = 1
 
-        elif validate_position(current_x-1, current_y, visited):
-            stack.push([current_x-1, current_y])
-            visited[current_x-1][current_y] = 1
+        elif validate_position(current["x"]-1, current["y"], visited):
+            stack.push([current["x"]-1, current["y"]])
+            visited[current["x"]-1][current["y"]] = 1
 
-        elif validate_position(current_x, current_y+1, visited):
-            stack.push([current_x, current_y+1])
-            visited[current_x][current_y+1] = 1
+        elif validate_position(current["x"], current["y"]+1, visited):
+            stack.push([current["x"], current["y"]+1])
+            visited[current["x"]][current["y"]+1] = 1
 
-        elif validate_position(current_x, current_y-1, visited):
-            stack.push([current_x, current_y-1])
-            visited[current_x][current_y-1] = 1
+        elif validate_position(current["x"], current["y"]-1, visited):
+            stack.push([current["x"], current["y"]-1])
+            visited[current["x"]][current["y"]-1] = 1
 
         else:
             stack.pop()
