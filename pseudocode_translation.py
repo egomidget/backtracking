@@ -1,36 +1,44 @@
 from stack import Stack
 from colorama import Fore
 import time
-def valid(x, y, v):
+
+#This is the map the maze solver function will use
+MAP =  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [7, 0, 7, 7, 7, 7, 7, 7, 7, 0], 
+        [7, 7, 7, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [7, 7, 7, 0, 7, 7, 7, 7, 7, 7],
+        [0, 0, 7, 0, 7, 0, 0, 0, 0, 0], 
+        [0, 0, 7, 0, 7, 0, 7, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+#x, y are x and y coordinates, v is the visited list(the big map grid 2d list).
+def validate_position(x:int, y:int, v:list) -> bool:
     try:
         if v[x][y] == 0 and x >= 0 and y >= 0:
             return True
         return False
     except IndexError:
         return False
+#returns a bool
 
-def solve_maze(start_x, start_y, goal_x, goal_y, visited = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                                            [7, 0, 7, 7, 7, 7, 7, 7, 7, 0], 
-                                            [7, 7, 7, 0, 0, 0, 0, 0, 0, 0], 
-                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                                            [7, 7, 7, 0, 7, 7, 7, 7, 7, 7],
-                                            [0, 0, 7, 0, 7, 0, 0, 0, 0, 0], 
-                                            [0, 0, 7, 0, 7, 0, 7, 0, 0, 0], 
-                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]):
+
+#start x and y are the starting position, goalx and y are the ending indicies, visited is the maze it is solving
+def solve_maze(start_x:int, start_y:int, goal_x:int, goal_y:int, visited:list = MAP):
     stack = Stack()
-    if not valid(start_x, start_y, visited) or not valid(goal_x, goal_y, visited):
+    if not validate_position(start_x, start_y, visited) or not validate_position(goal_x, goal_y, visited):
         raise Exception("Start or Goal inside wall")
     
 
     stack.push([start_x, start_y])
     visited[start_x][start_y] = 1
-    Goal = [goal_x, goal_y]
+    goal = [goal_x, goal_y]
     while not stack.isEmpty():
         [current_x, current_y] = stack.peek()
 
-        if [current_x, current_y] == Goal:
+        if [current_x, current_y] == goal:
             print("Path Found, the stack has the route")
             for z in range(0, stack.size()):
                 x1, y1 = stack.pop()
@@ -49,19 +57,19 @@ def solve_maze(start_x, start_y, goal_x, goal_y, visited = [[0, 0, 0, 0, 0, 0, 0
                 time.sleep(0.1)
             return "Path has been found"
 
-        if valid(current_x+1, current_y, visited):
+        if validate_position(current_x+1, current_y, visited):
             stack.push([current_x+1, current_y])
             visited[current_x+1][current_y] = 1
 
-        elif valid(current_x-1, current_y, visited):
+        elif validate_position(current_x-1, current_y, visited):
             stack.push([current_x-1, current_y])
             visited[current_x-1][current_y] = 1
 
-        elif valid(current_x, current_y+1, visited):
+        elif validate_position(current_x, current_y+1, visited):
             stack.push([current_x, current_y+1])
             visited[current_x][current_y+1] = 1
 
-        elif valid(current_x, current_y-1, visited):
+        elif validate_position(current_x, current_y-1, visited):
             stack.push([current_x, current_y-1])
             visited[current_x][current_y-1] = 1
 
