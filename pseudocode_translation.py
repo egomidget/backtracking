@@ -25,16 +25,20 @@ def validate_position(x:int, y:int, v:list) -> bool:
 #returns a bool
 
 
-#start x and y are the starting position, goalx and y are the ending indicies, visited is the maze it is solving
-def solve_maze(start_x:int, start_y:int, goal_x:int, goal_y:int, visited:list = MAP):
+def solve_maze(start : dict = {"x": 0, "y": 0}, 
+               goal : dict = {"x": 0, "y": 0}, 
+               visited : list = MAP) -> str:
+    """
+        start x and y are the starting position, goalx and y are the ending indicies, visited is the maze it is solving
+    """
     stack = Stack()
-    if not validate_position(start_x, start_y, visited) or not validate_position(goal_x, goal_y, visited):
+    if not validate_position(start["x"], start["y"], visited) or not validate_position(goal["x"], goal["y"], visited):
         raise Exception("Start or Goal inside wall")
     
 
-    stack.push([start_x, start_y])
-    visited[start_x][start_y] = 1
-    goal = [goal_x, goal_y]
+    stack.push([start["x"], start["y"]])
+    visited[start["x"]][start["y"]] = 1
+    goal = [goal["x"], goal["y"]]
     while not stack.isEmpty():
         [current_x, current_y] = stack.peek()
 
