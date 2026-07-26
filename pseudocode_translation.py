@@ -15,14 +15,14 @@ MAP =  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
 #x, y are x and y coordinates, v is the visited list(the big map grid 2d list).
-def validate_position(x:int, y:int, v:list) -> bool:
+def validate_position(y:int, x:int, v:list) -> bool:
     try:
-        if v[x][y] == 0 and x >= 0 and y >= 0:
+        if v[y][x] == 0 and x >= 0 and y >= 0:
             return True
         return False
     except IndexError:
         return False
-#returns a bool
+
 
 
 def solve_maze(start : dict = {"x": 0, "y": 0}, 
@@ -31,6 +31,8 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
     """
         start x and y are the starting position, goalx and y are the ending indicies, visited is the maze it is solving
     """
+
+
     stack = Stack()
     if not validate_position(start["x"], start["y"], visited) or not validate_position(goal["x"], goal["y"], visited):
         raise Exception("Start or Goal inside wall")
@@ -43,7 +45,7 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
         current = dict()
         current["x"], current["y"] = stack.peek()
 
-        if [current["x"], current["y"]] == goal:
+        if [current["y"], current["x"]] == goal:
             print("Path Found, the stack has the route")
             for z in range(0, stack.size()):
                 x1, y1 = stack.pop()
@@ -60,6 +62,7 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
                     print("")
                 print(Fore.WHITE+"")
                 time.sleep(0.1)
+
             return "Path has been found"
 
         if validate_position(current["x"]+1, current["y"], visited):
@@ -83,4 +86,4 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
 
     return "No path exists"
         
-print(solve_maze(0, 0, 3, 0))
+print(solve_maze({"x":0, "y": 0}, {"x":3, "y":0}))
