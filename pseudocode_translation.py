@@ -49,21 +49,26 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
             print("Path Found, the stack has the route")
             for z in range(0, stack.size()):
                 x1, y1 = stack.pop()
-                visited[x1][y1] = 0
-
-                for x in visited:
-                    for y in x:
-                        if y == 0:
-                            print(Fore.BLACK+"0, ", end = "")
-                        elif y == 1:
-                            print(Fore.GREEN+"1, ", end = "")
-                        elif y == 7:
-                            print(Fore.RED+"7, ", end = "")
-                    print("")
-                print(Fore.WHITE+"")
-                time.sleep(0.1)
-
-            return "Path has been found"
+                visited[x1][y1] = 9
+            print("")
+            print(Fore.GREEN+"Green is where the program explored")
+            print(Fore.BLACK+"Grey is where the program did not explore")
+            print(Fore.RED+"Red is where the walls are")
+            print(Fore.CYAN+"Blue thows the path found, but this path may not be the shortest")
+            print("")
+            for x in visited:
+                for y in x:
+                    if y == 0:
+                        print(Fore.BLACK+"0, ", end = "")
+                    elif y == 1:
+                        print(Fore.GREEN+"1, ", end = "")
+                    elif y == 7:
+                        print(Fore.RED+"7, ", end = "")
+                    elif y == 9:
+                        print(Fore.CYAN+"9, ", end = "")
+                print("")
+            print(Fore.WHITE+"")
+            return "Path was found"
 
         if validate_position(current["x"]+1, current["y"], visited):
             stack.push([current["x"]+1, current["y"]])
