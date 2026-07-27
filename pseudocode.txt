@@ -1,0 +1,25 @@
+FUNCTION solveMaze(start_x, start_y):
+    Create an empty Stack
+    Create a 2D grid/set called Visited (initially empty)
+    
+    // Start by pushing the initial position
+    Stack.push( (start_x, start_y) )
+    Mark (start_x, start_y) as Visited
+    
+    WHILE Stack is not empty:
+        // Look at current location without removing it yet
+        (current_x, current_y) = Stack.peek() 
+        
+        IF (current_x, current_y) is the Goal:
+            RETURN "Path Found! The stack contains the route."
+            
+        // Look for an open, unvisited neighbor (Up, Down, Left, Right)
+        IF there is a valid neighbor (next_x, next_y) that is NOT Wall and NOT Visited:
+            Mark (next_x, next_y) as Visited
+            Stack.push( (next_x, next_y) ) // "Take a step forward"
+            
+        ELSE:
+            // DEAD END: No valid moves available. Time to backtrack!
+            Stack.pop() // "Take a step backward"
+            
+    RETURN "No path exists."
