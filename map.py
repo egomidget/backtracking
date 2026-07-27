@@ -26,4 +26,5 @@ class Map:
                 return False
             except IndexError:
                 return False
-
+    def return_map(self):
+         return self.visited
