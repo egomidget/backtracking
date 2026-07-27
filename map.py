@@ -20,3 +20,10 @@ class Map:
         self.visited[y][x] = char
 
     def valid_position(self, x:int, y:int) -> bool:
+            try:
+                if self.visited[y][x] == 0 and x >= 0 and y >= 0:
+                    return True
+                return False
+            except IndexError:
+                return False
+
