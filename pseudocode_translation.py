@@ -1,7 +1,6 @@
 from stack import Stack
 from map import Map
 from colorama import Fore
-import time
 #This is the map the maze solver function will use
 MAP =  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
         [0, 7, 0, 7, 7, 7, 7, 7, 7, 0], 
