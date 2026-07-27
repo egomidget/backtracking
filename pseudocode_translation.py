@@ -1,7 +1,7 @@
 from stack import Stack
+from map import Map
 from colorama import Fore
 import time
-
 #This is the map the maze solver function will use
 MAP =  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
         [0, 7, 0, 7, 7, 7, 7, 7, 7, 0], 
@@ -14,14 +14,14 @@ MAP =  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 7, 0, 7, 0, 7, 0, 0, 0, 0], 
         [0, 7, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-#x, y are x and y coordinates, v is the visited list(the big map grid 2d list).
-def validate_position(x:int, y:int, v:list) -> bool:
-    try:
-        if v[y][x] == 0 and x >= 0 and y >= 0:
-            return True
-        return False
-    except IndexError:
-        return False
+# #x, y are x and y coordinates, v is the visited list(the big map grid 2d list).
+# def validate_position(x:int, y:int, v:list) -> bool:
+#     try:
+#         if v[y][x] == 0 and x >= 0 and y >= 0:
+#             return True
+#         return False
+#     except IndexError:
+#         return False
 
 
 
@@ -34,7 +34,8 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
 
 
     stack = Stack()
-    if not validate_position(start["x"], start["y"], visited) or not validate_position(goal["x"], goal["y"], visited):
+    maze = Map(MAP)
+    if not maze.valid_position(start["x"], start["y"]) or not maze.valid_position(goal["x"], goal["y"]):
         raise Exception("Start or Goal inside wall")
     
 
@@ -45,18 +46,18 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
         current = dict()
         current["x"], current["y"] = stack.peek()
 
-        if [current["y"], current["x"]] == goal:
+        if [current["x"], current["y"]] == goal:
             print("Path Found, the stack has the route")
             for z in range(0, stack.size()):
                 x1, y1 = stack.pop()
-                visited[x1][y1] = 9
+                maze.visit(x1, y1, 9)
             print("")
             print(Fore.GREEN+"Green is where the program explored")
             print(Fore.BLACK+"Grey is where the program did not explore")
             print(Fore.RED+"Red is where the walls are")
             print(Fore.CYAN+"Blue thows the path found, but this path may not be the shortest")
             print("")
-            for x in visited:
+            for x in maze.return_map():
                 for y in x:
                     if y == 0:
                         print(Fore.BLACK+"0, ", end = "")
@@ -70,21 +71,21 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
             print(Fore.WHITE+"")
             return "Path was found"
 
-        if validate_position(current["x"]+1, current["y"], visited):
+        if maze.valid_position(current["x"]+1, current["y"]):
             stack.push([current["x"]+1, current["y"]])
-            visited[current["x"]+1][current["y"]] = 1
+            maze.visit(current["x"]+1, current["y"])
 
-        elif validate_position(current["x"]-1, current["y"], visited):
+        elif maze.valid_position(current["x"]-1, current["y"]):
             stack.push([current["x"]-1, current["y"]])
-            visited[current["x"]-1][current["y"]] = 1
+            maze.visit(current["x"]-1, current["y"])
 
-        elif validate_position(current["x"], current["y"]+1, visited):
+        elif maze.valid_position(current["x"], current["y"]+1):
             stack.push([current["x"], current["y"]+1])
-            visited[current["x"]][current["y"]+1] = 1
+            maze.visit(current["x"], current["y"]+1)
 
-        elif validate_position(current["x"], current["y"]-1, visited):
+        elif maze.valid_position(current["x"], current["y"]-1):
             stack.push([current["x"], current["y"]-1])
-            visited[current["x"]][current["y"]-1] = 1
+            maze.visit(current["x"], current["y"]-1)
 
         else:
             stack.pop()
