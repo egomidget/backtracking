@@ -14,15 +14,6 @@ MAP =  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 7, 0, 7, 0, 7, 0, 0, 0, 0], 
         [0, 7, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-# #x, y are x and y coordinates, v is the visited list(the big map grid 2d list).
-# def validate_position(x:int, y:int, v:list) -> bool:
-#     try:
-#         if v[y][x] == 0 and x >= 0 and y >= 0:
-#             return True
-#         return False
-#     except IndexError:
-#         return False
-
 
 
 def solve_maze(start : dict = {"x": 0, "y": 0}, 
@@ -57,6 +48,7 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
             print(Fore.RED+"Red is where the walls are")
             print(Fore.CYAN+"Blue thows the path found, but this path may not be the shortest")
             print("")
+            
             for x in maze.return_map():
                 for y in x:
                     if y == 0:
