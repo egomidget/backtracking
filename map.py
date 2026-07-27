@@ -16,8 +16,8 @@ class Map:
         self.walls = walls or []
         self.visited = maze
 
-    def visit(self, x:int, y:int, char:int = 1):
-        self.visited[y][x] = char
+    def visit(self, x:int, y:int, marker:int = 1):
+        self.visited[y][x] = marker
 
     def valid_position(self, x:int, y:int) -> bool:
             try:
@@ -26,5 +26,3 @@ class Map:
                 return False
             except IndexError:
                 return False
-    def return_map(self):
-         return self.visited

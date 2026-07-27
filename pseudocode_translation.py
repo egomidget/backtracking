@@ -48,8 +48,8 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
             print(Fore.RED+"Red is where the walls are")
             print(Fore.CYAN+"Blue thows the path found, but this path may not be the shortest")
             print("")
-            
-            for x in maze.return_map():
+
+            for x in maze.visited:
                 for y in x:
                     if y == 0:
                         print(Fore.BLACK+"0, ", end = "")
