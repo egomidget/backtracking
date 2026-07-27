@@ -11,13 +11,12 @@ MAP =  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
 
 class Map:
-    def __init__(self, maze = MAP, walls = [7]):
-        maze = self.maze
-        walls = self.walls or []
-        visited = self.maze
+    def __init__(self, maze:list = MAP, walls:list = [7]):
+        self.maze = maze
+        self.walls = walls or []
+        self.visited = maze
 
-    def visit(self, x, y):
-        self.visited[y,x] = 1
+    def visit(self, x:int, y:int, char:int = 1):
+        self.visited[y][x] = char
 
-    def valid_position(self, x, y):
-
+    def valid_position(self, x:int, y:int) -> bool:
