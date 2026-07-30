@@ -20,6 +20,12 @@ def create_maze(dim):
         directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
         random.shuffle(directions)
 
+        #x, y = current x and current y
+        #dx, dy are the directions to add to x, y
+        #nx, ny are the actual added values of dx and x, and dy and y
+
+
+
         for dx, dy in directions:
             nx, ny = x + dx, y + dy
             if nx >= 0 and ny >= 0 and nx < dim and ny < dim and maze[2*nx+1, 2*ny+1] == 1:
@@ -35,4 +41,3 @@ def create_maze(dim):
     maze[-2, -1] = 0
 
     return maze.tolist()
-print(create_maze(5))
