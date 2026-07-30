@@ -1,6 +1,7 @@
 from stack import Stack
 from map import Map
 from colorama import Fore
+from maze import create_maze
 #This is the map the maze solver function will use
 MAP =  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
         [0, 7, 0, 7, 7, 7, 7, 7, 7, 0], 
@@ -14,7 +15,7 @@ MAP =  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 7, 0, 0, 0, 0, 0, 0, 0, 0]]
 
 
-
+MAP = create_maze(10)
 def solve_maze(start : dict = {"x": 0, "y": 0}, 
                goal : dict = {"x": 0, "y": 0}, 
                visited : list = MAP) -> str:
@@ -30,7 +31,7 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
     
 
     stack.push([start["x"], start["y"]])
-    visited[start["x"]][start["y"]] = 1
+    visited[start["x"]][start["y"]] = 7
     goal = [goal["x"], goal["y"]]
     while not stack.isEmpty():
         current = dict()
@@ -51,13 +52,13 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
             for x in maze.visited:
                 for y in x:
                     if y == 0:
-                        print(Fore.BLACK+"0, ", end = "")
+                        print(Fore.BLACK+"■, ", end = "")
                     elif y == 1:
-                        print(Fore.GREEN+"1, ", end = "")
+                        print(Fore.RED+"■, ", end = "")
                     elif y == 7:
-                        print(Fore.RED+"7, ", end = "")
+                        print(Fore.GREEN+"■, ", end = "")
                     elif y == 9:
-                        print(Fore.CYAN+"9, ", end = "")
+                        print(Fore.LIGHTCYAN_EX+"   ", end = "")
                 print("")
             print(Fore.WHITE+"")
             return "Path was found"
@@ -83,4 +84,4 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
 
     return "No path exists"
         
-print(solve_maze({"x":0, "y": 0}, {"x":9, "y":7}))
+print(solve_maze({"x":0, "y": 1}, {"x":20, "y":19}))
