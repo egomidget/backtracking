@@ -15,23 +15,24 @@ MAP =  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 7, 0, 0, 0, 0, 0, 0, 0, 0]]
 
 
-MAP = create_maze(10)
-def solve_maze(start : dict = {"x": 0, "y": 0}, 
-               goal : dict = {"x": 0, "y": 0}, 
-               visited : list = MAP) -> str:
+def solve_maze(dim) -> str:
     """
         start x and y are the starting position, goalx and y are the ending indicies, visited is the maze it is solving
     """
 
 
     stack = Stack()
+    MAP = create_maze(dim)
+    start = {"x":0, "y":1}
+    goal = {"x":2*dim, "y":2*dim-1}
+
     maze = Map(MAP)
     if not maze.valid_position(start["x"], start["y"]) or not maze.valid_position(goal["x"], goal["y"]):
         raise Exception("Start or Goal inside wall")
     
 
     stack.push([start["x"], start["y"]])
-    visited[start["x"]][start["y"]] = 7
+    maze.visit(start["x"], start["y"])
     goal = [goal["x"], goal["y"]]
     while not stack.isEmpty():
         current = dict()
@@ -52,13 +53,13 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
             for x in maze.visited:
                 for y in x:
                     if y == 0:
-                        print(Fore.BLACK+"■, ", end = "")
+                        print(Fore.BLACK+"▢  ", end = "")
                     elif y == 1:
-                        print(Fore.RED+"■, ", end = "")
+                        print(Fore.RED+"▢  ", end = "")
                     elif y == 7:
-                        print(Fore.GREEN+"■, ", end = "")
+                        print(Fore.GREEN+"■  ", end = "")
                     elif y == 9:
-                        print(Fore.LIGHTCYAN_EX+"   ", end = "")
+                        print(Fore.LIGHTCYAN_EX+"■  ", end = "")
                 print("")
             print(Fore.WHITE+"")
             return "Path was found"
@@ -84,4 +85,4 @@ def solve_maze(start : dict = {"x": 0, "y": 0},
 
     return "No path exists"
         
-print(solve_maze({"x":0, "y": 1}, {"x":20, "y":19}))
+print(solve_maze(15))
