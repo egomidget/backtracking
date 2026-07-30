@@ -5,7 +5,7 @@ from queue import Queue
 
 def create_maze(dim):
     # Create a grid filled with walls
-    maze = np.ones((dim*2+1, dim*2+1))
+    maze = np.ones((dim*2+1, dim*2+1), dtype=int)
 
     # Define the starting point
     x, y = (0, 0)
@@ -34,4 +34,5 @@ def create_maze(dim):
     maze[1, 0] = 0
     maze[-2, -1] = 0
 
-    return maze
+    return maze.tolist()
+print(create_maze(5))
