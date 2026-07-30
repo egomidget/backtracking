@@ -16,7 +16,7 @@ class Map:
         self.walls = walls or []
         self.visited = maze
 
-    def visit(self, x:int, y:int, marker:int = 1):
+    def visit(self, x:int, y:int, marker:int = 7):
         self.visited[y][x] = marker
 
     def valid_position(self, x:int, y:int) -> bool:
