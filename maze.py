@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 import random
 from queue import Queue
@@ -40,4 +40,6 @@ def create_maze(dim):
     maze[1, 0] = 0
     maze[-2, -1] = 0
 
+
+    #maze.tolist converts the numpy array into a list(in this case a 2D list)
     return maze.tolist()
