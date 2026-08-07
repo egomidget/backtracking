@@ -14,39 +14,41 @@ def solve_maze(MAP, dim) -> str:
     goal = {"x":2*dim, "y":2*dim-1}
 
     maze = Map(MAP)
-    if not maze.valid_position(start["x"], start["y"]) or not maze.valid_position(goal["x"], goal["y"]):
+    if not maze.solver_valid_position(start["x"], start["y"]) or not maze.solver_valid_position(goal["x"], goal["y"]):
         raise Exception("Start or Goal inside wall")
     
 
     stack.push([start["x"], start["y"]])
-    maze.visit(start["x"], start["y"])
+    maze.solver_visit(start["x"], start["y"])
     goal = [goal["x"], goal["y"]]
     while not stack.isEmpty():
         current = dict()
         current["x"], current["y"] = stack.peek()
 
+        #9 is the path
         if [current["x"], current["y"]] == goal:
             print("Path Found, the stack has the route")
+            path = []
             for z in range(0, stack.size()):
                 x1, y1 = stack.pop()
-                maze.visit(x1, y1, 9)
-            return "Path was found"
+                path.append([x1, y1])
+            return path
 
-        if maze.valid_position(current["x"]+1, current["y"]):
+        if maze.solver_valid_position(current["x"]+1, current["y"]):
             stack.push([current["x"]+1, current["y"]])
-            maze.visit(current["x"]+1, current["y"])
+            maze.solver_visit(current["x"]+1, current["y"])
 
-        elif maze.valid_position(current["x"]-1, current["y"]):
+        elif maze.solver_valid_position(current["x"]-1, current["y"]):
             stack.push([current["x"]-1, current["y"]])
-            maze.visit(current["x"]-1, current["y"])
+            maze.solver_visit(current["x"]-1, current["y"])
 
-        elif maze.valid_position(current["x"], current["y"]+1):
+        elif maze.solver_valid_position(current["x"], current["y"]+1):
             stack.push([current["x"], current["y"]+1])
-            maze.visit(current["x"], current["y"]+1)
+            maze.solver_visit(current["x"], current["y"]+1)
 
-        elif maze.valid_position(current["x"], current["y"]-1):
+        elif maze.solver_valid_position(current["x"], current["y"]-1):
             stack.push([current["x"], current["y"]-1])
-            maze.visit(current["x"], current["y"]-1)
+            maze.solver_visit(current["x"], current["y"]-1)
 
         else:
             stack.pop()
