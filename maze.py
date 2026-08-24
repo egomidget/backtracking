@@ -1,11 +1,11 @@
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 import random
 from queue import Queue
 
 def create_maze(dim):
     # Create a grid filled with walls
-    maze = np.ones((dim*2+1, dim*2+1))
+    maze = np.ones((dim*2+1, dim*2+1), dtype=int)
 
     # Define the starting point
     x, y = (0, 0)
@@ -19,6 +19,12 @@ def create_maze(dim):
         # Define possible directions
         directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
         random.shuffle(directions)
+
+        #x, y = current x and current y
+        #dx, dy are the directions to add to x, y
+        #nx, ny are the actual added values of dx and x, and dy and y
+
+
 
         for dx, dy in directions:
             nx, ny = x + dx, y + dy
@@ -34,4 +40,6 @@ def create_maze(dim):
     maze[1, 0] = 0
     maze[-2, -1] = 0
 
-    return maze
+
+    #maze.tolist converts the numpy array into a list(in this case a 2D list)
+    return maze.tolist()
